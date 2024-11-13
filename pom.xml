@@ -55,19 +55,15 @@
 	        <groupId>org.springframework.boot</groupId>
 	        <artifactId>spring-boot-starter-security</artifactId>
 	    </dependency>
-	
+	    
 	    <!-- Dependência do Spring OAuth2 Client para login social (Google, Facebook, etc.) -->
 	    <dependency>
 	        <groupId>org.springframework.boot</groupId>
 	        <artifactId>spring-boot-starter-oauth2-client</artifactId>
 	    </dependency>
-	    <dependency>
-	    	<groupId>br.com.emissorcertificado</groupId>
-	    	<artifactId>emissorCertificado</artifactId>
-	    	<version>0.0.1-SNAPSHOT</version>
-	    </dependency>
-	</dependencies>
 
+	</dependencies>
+	
 	<build>
 		<plugins>
 			<plugin>

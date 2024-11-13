@@ -1,34 +1,27 @@
 package com.hackathon.impulso.regional.hackathon_flor_do_nordeste.controller;
 
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import com.hackathon.impulso.regional.hackathon_flor_do_nordeste.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 public class AuthController {
 
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private AuthService authService;
 
-    // Endpoint de login simples
+    // Endpoint para login com email e senha
     @PostMapping("/login")
-    public String login(@RequestParam String email, @RequestParam String password) {
-        Authentication authentication = authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(email, password)
-        );
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        return "Login bem-sucedido!";
+    public String loginWithEmail(@RequestParam String email, @RequestParam String password) {
+        boolean isAuthenticated = authService.authenticateWithEmail(email, password);
+        return isAuthenticated ? "Login com email e senha bem-sucedido" : "Falha no login com email e senha";
     }
 
-    // Endpoint para login social (ex: Google)
-    @GetMapping("/social-login")
-    public String socialLogin() {
-        return "Login via social!";
+    // Endpoint para login social
+    @PostMapping("/social-login")
+    public String loginWithSocial(@RequestParam String provider) {
+        boolean isAuthenticated = authService.authenticateWithSocial(provider);
+        return isAuthenticated ? "Login social bem-sucedido" : "Falha no login social";
     }
 }
